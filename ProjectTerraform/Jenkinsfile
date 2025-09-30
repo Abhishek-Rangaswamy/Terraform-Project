@@ -15,8 +15,8 @@ pipeline {
 
                       # make sure workspace exists
                       terraform workspace select staging || terraform workspace new staging
-                      terraform show
-                      
+                      terraform workspace show
+
                       # quick check that creds work
                       aws sts get-caller-identity || true
 
