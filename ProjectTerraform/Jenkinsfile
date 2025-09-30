@@ -8,10 +8,11 @@ pipeline {
                                                   usernameVariable: 'AWS_ACCESS_KEY_ID',
                                                   passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
+                      echo "Running Terraform..."
                       cd envs/staging
                       export AWS_DEFAULT_REGION=us-east-1
 
-                      # sanity check
+                      # quick check that creds work
                       aws sts get-caller-identity || true
 
                       terraform init -input=false
