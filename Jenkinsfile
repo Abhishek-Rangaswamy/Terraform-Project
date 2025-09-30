@@ -10,10 +10,10 @@ pipeline {
                     sh '''
                       cd envs/staging
                       export AWS_DEFAULT_REGION=us-east-1
-                      
-                      # Optional: quick check if credentials are injected
-                      aws sts get-caller-identity
-                      
+
+                      # sanity check
+                      aws sts get-caller-identity || true
+
                       terraform init -input=false
                       terraform validate
                       terraform plan -out=tfplan
