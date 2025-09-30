@@ -9,9 +9,14 @@ pipeline {
                                                   passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                       echo "Running Terraform..."
-                      cd ProjectTerraform
-                      terraform select workspace staging
 
+                      # move to your Terraform project folder
+                      cd ProjectTerraform
+
+                      # make sure workspace exists
+                      terraform workspace select staging || terraform workspace new staging
+                      terraform show
+                      
                       # quick check that creds work
                       aws sts get-caller-identity || true
 
